@@ -3,6 +3,7 @@
 clc;
 
 addpath('../');
+addpath('../data/');
 
 data=zscore(csvread('gaussian_data.csv'));
 x=data(:,1:end-1);
@@ -62,10 +63,6 @@ for lambda = interval:interval:1
         best_prediction = y_predicted;
     end
 end
-
-%Convert Normalized Data to Original Scale
-y_test = y_test*y_stdev + y_mean;
-best_prediction = best_prediction*y_stdev + y_mean;
 
 %Data Visualized
 figure

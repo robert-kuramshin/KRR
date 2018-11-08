@@ -2,6 +2,7 @@
 %KRR (w. Gaussian Kernel) + k-Fold cross-validation 
 clc;
 
+addpath('../data/');
 addpath('../');
 
 %Import file
