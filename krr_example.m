@@ -14,17 +14,18 @@ x = x(shuffled_indexes,:);
 y = y(shuffled_indexes,:);
 
 %train split amount
-t_split = 0.5;
+t_split = 0.6;
 
 %test/train split
-N_test = N-(N*t_split);
-N_train = N-N_test;
 
-x_test = x((N*t_split)+1:end,:);
-x_train = x(1:(N*t_split),:);
+N_train = (N*t_split);
+N_test = N-N_train;
 
-y_test = y((N*t_split)+1:end,:);
-y_train = y(1:(N*t_split),:);
+x_test = x(N_train+1:end,:);
+x_train = x(1:N_train,:);
+
+y_test = y(N_train+1:end,:);
+y_train = y(1:N_train,:);
 
 
 %gaussian
@@ -34,6 +35,17 @@ for j=1:N_train
     K_gauss(i,j)=exp(-norm(x_train(j,:)-x_train(i,:)));
  end
 end
+
+%gaussian
+% k(x, x' ) = exp −(x − x' )^2/2σ^2
+% k(x, x) = exp −(x − x)^2/2σ^2
+k=zeros(N_test,N_train);
+for j=1:N_train
+ for i=1:N_test
+    k(i,j)=exp(-norm(x_train(j,:)-x_test(i,:)));
+ end
+end
+
 
 y_predicted_sample=zeros(N_train,1);
 y_predicted=zeros(N_test,1);
@@ -54,7 +66,7 @@ for lambda=intvl:intvl:1
     in_sample_error(int32(lambda/intvl)) = norm(y_predicted_sample-y_train)^2/N_train;
     
     for i=1:N_test
-        y_predicted(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\(x_train*(x_test(i,:)')));
+        y_predicted(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\k(i,:)');
     end
     out_sample_error(int32(lambda/intvl)) = norm(y_predicted-y_test)^2/N_test;
 end
