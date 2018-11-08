@@ -57,6 +57,12 @@ KRR_Build_K(x_train);
 %build gaussian kernel k
 KRR_Build_k(x_train,x_test);
 
+%look for lambda with lowest k-fold cross-validation error
+interval = 0.01;
+for lambda = interval:interval:1
+    
+end
+
 
 
 

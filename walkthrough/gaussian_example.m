@@ -29,10 +29,10 @@ y_train = y(1:N_train,:);
 
 
 %gaussian
-K_gauss=zeros(N_train,N_train);
+K=zeros(N_train,N_train);
 for j=1:N_train
  for i=1:N_train
-    K_gauss(i,j)=exp(-norm(x_train(j,:)-x_train(i,:)));
+    K(i,j)=exp(-norm(x_train(j,:)-x_train(i,:)));
  end
 end
 
@@ -44,7 +44,7 @@ for i=1:N_train
     if mod(i,10) == 0
         fprintf('Training on Sample: %d of %d\n',i,N_train);
     end
-    y_predicted_sample(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\K_gauss(i,:)');
+    y_predicted_sample(i,1)= y_train'*((K+ lambda*eye(N_train))\K(i,:)');
 end
 
 in_sample_error = norm(y_predicted_sample-y_train)^2/N_train
@@ -76,7 +76,7 @@ end
 y_predicted=zeros(N_test,1);
 
 for i=1:N_test
-    y_predicted(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\k(i,:)');
+    y_predicted(i,1)= y_train'*((K+ lambda*eye(N_train))\k(i,:)');
 end
 
 out_sample_error = norm(y_predicted-y_test)^2/N_test
