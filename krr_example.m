@@ -2,7 +2,7 @@
 % double_perovskites_gap.csv
 clear all;clc;
 
-data=zscore(csvread('GaussianData.csv'));
+data=zscore(csvread('gaussian_data.csv'));
 x=data(:,1:end-1);
 y=data(:,end);
 
