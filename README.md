@@ -11,7 +11,9 @@ The `/walkthrough` directory contains resources that were designed to explain th
 The `/double_perovskites` directory contains an example implementation of the KRR algorithms from this repository. The goal is to learn to predict the bang-gaps of a material from it's chemical composition. 
 
 #### Data
-The `/data` directory contains all the data files used in the examples. `gaussian_data.csv` represents a 3-dimensional function with added gaussian noise. `double_perovskites_gap.xlsx` contains chemical compositions and accompanying band-gaps of 1306 different double perovskites. 
+The `/data` directory contains all the data files used in the examples. `gaussian_data.csv` represents a 3-dimensional function with added gaussian noise. `double_perovskites_gap.xlsx` contains chemical compositions and accompanying band-gaps of 1306 different double-perovskites. 
+
+The double-perovskites database was sourced from https://cmr.fysik.dtu.dk/
   
 ------
 *written by Robert Kuramshin*
