@@ -50,13 +50,13 @@ end
 
 in_sample_error = norm(y_predicted_sample-y_train)^2/N_train;
 
-
-%in sample
 figure
+hs(1) = subplot(2,1,1);
+%in sample
 hold on
 
-scatter3(x_train(:,1),x_train(:,2),y_train,'g')
-scatter3(x_train(:,1),x_train(:,2),y_predicted_sample,'r')
+scatter3(hs(1),x_train(:,1),x_train(:,2),y_train,'g')
+scatter3(hs(1),x_train(:,1),x_train(:,2),y_predicted_sample,'r')
 
 title('TRAIN SET')
 xlabel({'x_1'})
@@ -81,12 +81,12 @@ end
 
 out_sample_error = norm(y_predicted-y_test)^2/N_test;
 
+hs(2) = subplot(2,1,2);
 %out of sample
-figure
 hold on
 
-scatter3(x_test(:,1),x_test(:,2),y_test,'g')
-scatter3(x_test(:,1),x_test(:,2),y_predicted,'r')
+scatter3(hs(2),x_test(:,1),x_test(:,2),y_test,'g')
+scatter3(hs(2),x_test(:,1),x_test(:,2),y_predicted,'r')
 
 title('TEST SET')
 xlabel({'x_1'})
