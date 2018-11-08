@@ -54,7 +54,7 @@ for lambda = interval:interval:1
     
     fprintf('Testing Lambda Value #: %d of %d\n',i,total_intervals);
             
-    y_predicted = KRR_Predict(x_train,y_train,x_test,K,k,lambda);
+    y_predicted = KRR_Predict(y_train,x_test,K,k,lambda);
     
     error(i,1) = Mean_Square_Error(y_test,y_predicted);
     
