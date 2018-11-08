@@ -36,40 +36,19 @@ for j=1:N_train
  end
 end
 
-%gaussian
-% k(x, x' ) = exp −(x − x' )^2/2σ^2
-% k(x, x) = exp −(x − x)^2/2σ^2
-k=zeros(N_test,N_train);
-for j=1:N_train
- for i=1:N_test
-    k(i,j)=exp(-norm(x_train(j,:)-x_test(i,:)));
- end
-end
-
-
 y_predicted_sample=zeros(N_train,1);
 y_predicted=zeros(N_test,1);
 
-intvl=0.1;
+lambda=0.1;
 
-in_sample_error = zeros(1/intvl,1);
-out_sample_error = zeros(1/intvl,1);
-
-for lambda=intvl:intvl:1
-    fprintf('On iteration: %d of %d\n',int32((lambda/intvl)),(1/intvl));
-    for i=1:N_train
-        if mod(i,50) == 0
-            fprintf('Training on Sample: %d of %d\n',i,N_train);
-        end
-        y_predicted_sample(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\K_gauss(i,:)');
+for i=1:N_train
+    if mod(i,50) == 0
+        fprintf('Training on Sample: %d of %d\n',i,N_train);
     end
-    in_sample_error(int32(lambda/intvl)) = norm(y_predicted_sample-y_train)^2/N_train;
-    
-    for i=1:N_test
-        y_predicted(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\k(i,:)');
-    end
-    out_sample_error(int32(lambda/intvl)) = norm(y_predicted-y_test)^2/N_test;
+    y_predicted_sample(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\K_gauss(i,:)');
 end
+
+in_sample_error = norm(y_predicted_sample-y_train)^2/N_train;
 
 
 %in sample
@@ -79,13 +58,28 @@ hold on
 scatter3(x_train(:,1),x_train(:,2),y_train,'g')
 scatter3(x_train(:,1),x_train(:,2),y_predicted_sample,'r')
 
-title('IN SAMPLE')
+title('TRAIN SET')
 xlabel({'x_1'})
 ylabel({'x_2'})
 zlabel('y')
 view([-47.1 4.4])
+legend('Train Set','Train Set Prediction')
 
 hold off
+
+k=zeros(N_test,N_train);
+for j=1:N_train
+ for i=1:N_test
+    k(i,j)=exp(-norm(x_train(j,:)-x_test(i,:)));
+ end
+end
+
+
+for i=1:N_test
+    y_predicted(i,1)= y_train'*((K_gauss+ lambda*eye(N_train))\k(i,:)');
+end
+
+out_sample_error = norm(y_predicted-y_test)^2/N_test;
 
 %out of sample
 figure
@@ -94,10 +88,11 @@ hold on
 scatter3(x_test(:,1),x_test(:,2),y_test,'g')
 scatter3(x_test(:,1),x_test(:,2),y_predicted,'r')
 
-title('OUT SAMPLE')
+title('TEST SET')
 xlabel({'x_1'})
 ylabel({'x_2'})
 zlabel('y')
 view([-47.1 4.4])
+legend('Test Set','Test Set Prediction')
 
 hold off
