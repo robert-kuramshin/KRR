@@ -39,11 +39,11 @@ x = x(shuffled_indexes,:);
 y = y(shuffled_indexes,:);
 
 %Train split amount
-t_split = 0.9;
+n_folds = 10;
 
-%Test/train split
+%Validation splits split
 
-N_train =int32(N*t_split);
+N_train =int32(N*(n_folds-1)/n_folds);
 N_test = N-N_train;
 
 x_test = x(N_train+1:end,:);
@@ -84,6 +84,10 @@ for lambda = interval:interval:1
     end
 end
 
+%Convert Normalized Data to Original Scale
+y_test = y_test*y_stdev + y_mean;
+best_prediction = best_prediction*y_stdev + y_mean;
+
 %Data Visualized
 figure
 hold on
@@ -96,7 +100,19 @@ xlabel({'x_1'})
 ylabel({'x_2'})
 zlabel('y')
 view([-47.1 4.4])
-legend('Actual Band Gap (Normalized)','Predicted Band Gap (Normalized)')
+legend('Actual Band Gap','Predicted Band Gap')
+
+hold off
+
+%Error Over Lambda
+figure
+hold on
+
+scatter(error,interval:interval:1,'b')
+
+title('Error vs Lambda')
+xlabel({'error'})
+ylabel({'lambda'})
 
 hold off
 
