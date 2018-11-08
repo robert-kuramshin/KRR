@@ -62,8 +62,6 @@ k = KRR_Build_k(x_train,x_test);
 %Look for lambda with lowest k-fold cross-validation error
 interval = 0.1;
 
-total_intervals = (1/interval);
-
 least_mean_squared_error = realmax;
 best_prediction = [N_test,1];
 
@@ -72,19 +70,21 @@ error = zeros(1/interval,1);
 for lambda = interval:interval:1
     i = int32(lambda/interval);
     
-    fprintf('Testing Lambda Value #: %d of %d\n',i,total_intervals);
+    fprintf('Testing Lambda Value #: %d of %d\n',i,(1/interval));
             
     y_predicted = KRR_predict(x_train,y_train,x_test,K,k,lambda);
     
     error(i,1) = Mean_Square_Error(y_test,y_predicted);
     
-    if error(i,1) < least_mean_squared_error
-        least_mean_squared_error = error(i,1);
+    if error < least_mean_squared_error
+        least_mean_squared_error = error;
         best_prediction = y_predicted;
     end
 end
 
-%Data Visualized
+least_mean_squared_error = min(errors(:,1));
+
+%Figure
 figure
 hold on
 
