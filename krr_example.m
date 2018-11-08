@@ -13,16 +13,18 @@ shuffled_indexes = randperm(N);
 x = x(shuffled_indexes,:);
 y = y(shuffled_indexes,:);
 
+%train split amount
+t_split = 0.5;
 
 %test/train split
-N_test = N-(N*0.9);
+N_test = N-(N*t_split);
 N_train = N-N_test;
 
-x_test = x((N*0.9)+1:end,:);
-x_train = x(1:(N*0.9),:);
+x_test = x((N*t_split)+1:end,:);
+x_train = x(1:(N*t_split),:);
 
-y_test = y((N*0.9)+1:end,:);
-y_train = y(1:(N*0.9),:);
+y_test = y((N*t_split)+1:end,:);
+y_train = y(1:(N*t_split),:);
 
 
 %gaussian
@@ -32,7 +34,6 @@ for j=1:N_train
     K_gauss(i,j)=exp(-norm(x_train(j,:)-x_train(i,:)));
  end
 end
-
 
 y_predicted_sample=zeros(N_train,1);
 y_predicted=zeros(N_test,1);
