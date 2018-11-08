@@ -1,6 +1,6 @@
 %KRR Predict
 %Robert Kuramshin
-function [y_predicted]=KRR_predict(x_train,y_train,x_test,K,k,lambda)
+function [y_predicted]=KRR_Predict(x_train,y_train,x_test,K,k,lambda)
     N_test = length(x_test);
     N_train = length(x_train);
 
