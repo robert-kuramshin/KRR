@@ -7,7 +7,7 @@ clear all;clc;
 
 %Use all samples or specifu a number 
 %N = length(y);
-N = 1300;
+N = 200;
 
 %Initailze Inputs 
 y = y(1:N,:);
