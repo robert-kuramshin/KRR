@@ -78,7 +78,7 @@ xlabel({'x_1'})
 ylabel({'x_2'})
 zlabel('y')
 view([-47.1 4.4])
-legend('y','predicted')
+legend('y','Predicted Band Gap')
 
 hold off
 
@@ -86,11 +86,11 @@ hold off
 figure
 hold on
 
-scatter(interval:interval:1,error,'b')
+scatter(error,interval:interval:1,'b')
 
-title('Lambda vs Error')
-xlabel({'lambda'})
-ylabel({'error'})
+title('Error vs Lambda')
+xlabel({'error'})
+ylabel({'lambda'})
 
 hold off
 
