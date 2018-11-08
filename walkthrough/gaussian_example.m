@@ -1,7 +1,8 @@
 % Gaussian Example
 % Robert Kuramshin
-addpath('../');
 clc;
+
+addpath('../');
 
 data=zscore(csvread('gaussian_data.csv'));
 x=data(:,1:end-1);
